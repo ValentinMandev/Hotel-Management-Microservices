@@ -1,0 +1,6 @@
+spring:
+  config:
+    import: optional:file:../../../shared-configuration/application-common.yaml
+
+server:
+  port: 8081
