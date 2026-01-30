@@ -1,7 +1,6 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: ${DATABASE_HOST}/user-service?currentSchema=public&ssl=false
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
 
