@@ -3,6 +3,8 @@ spring:
     import: optional:file:../../../shared-configuration/application-common-prod.yaml
   application:
     name: user-service
+  datasource:
+    url: ${DATABASE_HOST}/user-service
 
 server:
   port: 8081
