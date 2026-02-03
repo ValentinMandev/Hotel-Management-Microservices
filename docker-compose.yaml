@@ -22,6 +22,55 @@ services:
       retries: 5
 
 
+  api-gateway:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: hotel-management-system
+      AUTH_SERVICE_URL: ${AUTH_SERVICE_URL}
+      BOOKING_SERVICE_URL: ${BOOKING_SERVICE_URL}
+      ROOM_SERVICE_URL: ${ROOM_SERVICE_URL}
+      PAYMENT_SERVICE_URL: ${PAYMENT_SERVICE_URL}
+      NOTIFICATION_SERVICE_URL: ${NOTIFICATION_SERVICE_URL}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - user-service
+      - booking-service
+      - room-service
+      - payment-service
+      - notification-service
+    networks:
+      - hotel-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: ${DATABASE_HOST}/auth-service
+      SPRING_DATASOURCE_USERNAME: ${DATABASE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: hotel-management-system
+      JWT_EXPIRATION: 900
+      JWT_REFRESH_EXPIRATION: 604800
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - hotel-network
+
+
   user-service:
     build:
       context: ./user-service
