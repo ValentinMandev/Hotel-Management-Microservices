@@ -35,6 +35,12 @@ dependencies {
 //    testImplementation("io.projectreactor:reactor-test")
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
