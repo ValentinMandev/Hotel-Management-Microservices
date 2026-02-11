@@ -1,10 +1,12 @@
 package com.hotel.authservice.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class AuthResponseDto {
 
     private String accessToken;
@@ -16,8 +18,10 @@ public class AuthResponseDto {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class UserInfo {
         private Long id;
+        private String username;
         private String email;
         private String firstName;
         private String lastName;
