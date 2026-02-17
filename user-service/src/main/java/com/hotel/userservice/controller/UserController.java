@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/profile")
+    @PostMapping("/edit-profile")
     public String updateProfile(@Valid @RequestBody UserProfileDto request) {
         return null;
     }
