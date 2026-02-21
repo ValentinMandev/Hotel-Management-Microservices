@@ -91,6 +91,28 @@ services:
       - hotel-network
     restart: unless-stopped
 
+
+  booking-service:
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    container_name: hotel-booking-service
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: ${DATABASE_HOST}/booking-service
+      SPRING_DATASOURCE_USERNAME: ${DATABASE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - hotel-network
+    restart: unless-stopped
+
+
 networks:
   hotel-network:
     driver: bridge
