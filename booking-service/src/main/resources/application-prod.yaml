@@ -1,0 +1,10 @@
+spring:
+  config:
+    import: optional:file:../../../shared-configuration/application-common-prod.yaml
+  application:
+    name: booking-service
+  datasource:
+    url: ${DATABASE_HOST}/booking-service
+
+server:
+  port: 8083
